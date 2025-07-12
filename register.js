@@ -34,28 +34,29 @@
             // Замените YOUR_WEB_APP_URL на URL вашего развернутого Google Apps Script
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbxMXXUTPvsbzQo42zarwhVqAAIO_3IHMDBK53p2Zip9e5kJh-YMSwh3PochbfSbfViotA/exec'; 
 
-            try {
-                const response = await fetch(scriptUrl, {
-                    method: 'POST',
-                    mode: 'no-cors', // Важно для кросс-доменных запросов к Google Apps Script
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                // Поскольку 'no-cors' режим не позволяет читать ответ,
-                // мы просто предполагаем успех, если нет явной ошибки сети.
-                // В реальном приложении можно настроить CORS на Google Apps Script
-                // и получать более точные ответы.
-
-                formStatus.textContent = 'Message sent successfully! We will contact you shortly.';
-                formStatus.className = 'success';
-                form.reset(); // Очищаем форму после успешной отправки
-
-            } catch (error) {
-                console.error('Ошибка отправки формы:', error);
-                formStatus.textContent = 'An error occurred while sending the message. Please try again.';
-                formStatus.className = 'error';
-            }
+           try {
+        const response = await fetch(scriptUrl, {
+            method: 'POST',
+            // mode: 'no-cors',  <-- УБИРАЕМ ЭТУ СТРОКУ
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
         });
+
+        // Теперь мы можем проверить реальный ответ от сервера
+        if (response.ok) {
+            formStatus.textContent = 'Message sent successfully! We will contact you shortly.';
+            formStatus.className = 'success';
+            form.reset();
+        } else {
+            // Если сервер вернул ошибку
+            throw new Error('Server responded with an error.');
+        }
+
+    } catch (error) {
+        console.error('Form submission error:', error);
+        formStatus.textContent = 'An error occurred while sending the message. Please try again.';
+        formStatus.className = 'error';
+    }
+});
