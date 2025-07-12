@@ -32,7 +32,7 @@
             });
 
             // Замените YOUR_WEB_APP_URL на URL вашего развернутого Google Apps Script
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzKv0Qcuk2KJ3gxCEIdqjm01mVCzwEKYJhJon7TMkIHrF8IkAUPbDwm5PukXIgeKmD_nA/exec'; 
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzHn8U_ht3C4EfUsjB7aIwVRxv2M80tzEyO0tqiIzUenvn0uPH06rhWMr2SGXmMlyFFcg/exec'; 
 
            try {
      const formData = new FormData(form); 
