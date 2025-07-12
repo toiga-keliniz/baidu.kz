@@ -35,14 +35,12 @@
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzKv0Qcuk2KJ3gxCEIdqjm01mVCzwEKYJhJon7TMkIHrF8IkAUPbDwm5PukXIgeKmD_nA/exec'; 
 
            try {
-        const response = await fetch(scriptUrl, {
-            method: 'POST',
-            // mode: 'no-cors',  <-- УБИРАЕМ ЭТУ СТРОКУ
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
+     const formData = new FormData(form); 
+
+const response = await fetch(scriptUrl, {
+    method: 'POST',
+    body: formData // Отправляем объект FormData напрямую
+});
 
         // Теперь мы можем проверить реальный ответ от сервера
         if (response.ok) {
